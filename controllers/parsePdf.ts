@@ -6,7 +6,7 @@ import { processPdf } from "@calvertwong/pdf-fields-extractor";
 export const parsePdf = async (req: Request, res: Response) => {
   const { editedPdfBytes, finalJson } = await processPdf({
     fileBytes: req.file!.buffer,
-    questions: req.body.questions,
+    questions: typeof req.body.questions === 'string' ? JSON.parse(req.body.questions) : req.body.questions,
     customMetaData: [
       { "Modified By": "Test User" }
     ]
